@@ -5,271 +5,52 @@
      crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YLZZCG8BHH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-YLZZCG8BHH');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <meta name="description" content="실시간 코인 수익률 계산기. 수수료, 수익률, 목표가 분석 포함. 초보자도 쉽게 활용할 수 있는 무료 도구.">
-  <meta name="keywords" content="코인 수익률 계산기, crypto ROI calculator, 암호화폐 투자, 수익 분석, DCA 전략, 비트코인 수익률, 투자 수익률 계산기">
-  <meta name="robots" content="index, follow">
-<title>코인 수익률 계산기 (프리미엄)</title>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YLZZCG8BHH"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-YLZZCG8BHH');
-  </script>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; background-color: #121212; color: #fff;
-      font-family: 'Arial', sans-serif;
-    }
-    .container {
-      display: flex; flex-direction: row;
-      justify-content: center; align-items: flex-start;
-      padding: 20px;
-    }
-    .sidebar {
-      width: 120px; background-color: #1e1e1e;
-      padding: 10px; margin: 0 10px; border-radius: 8px;
-      text-align: center; color: #999;
-      border: 1px dashed #444;
-    }
-    .sidebar.left { order: -1; }
-    .content {
-      max-width: 600px; width: 100%;
-    }
-    .adsense-placeholder {
-      background-color: #2c2c2c; text-align: center; color: #999;
-      padding: 15px; margin: 20px 0;
-      border: 1px dashed #444; border-radius: 5px;
-      font-size: 14px;
-    }
-    h2 { text-align: center; color: #00e676; margin-bottom: 20px; }
-    label { display: block; margin-top: 15px; font-weight: bold; }
-    input {
-      width: 100%; padding: 10px; margin-top: 5px;
-      background-color: #1e1e1e; border: 1px solid #333;
-      color: #fff; border-radius: 5px;
-    }
-    button {
-      margin-top: 15px; width: 100%;
-      padding: 12px; background: #00c853;
-      color: white; border: none; border-radius: 5px;
-      font-size: 16px; cursor: pointer;
-    }
-    #result {
-      margin-top: 30px; padding: 15px;
-      background-color: #1b1b1b;
-      border-radius: 5px; border: 1px solid #333;
-    }
-    .mobile-bottom-banner {
-      display: none;
-    }
-    @media (max-width: 768px) {
-      .container { flex-direction: column; padding: 10px; }
-      .sidebar { display: none; }
-      .mobile-bottom-banner {
-        display: block; position: fixed; bottom: 0; width: 100%;
-        background: #333; color: #fff; text-align: center;
-        padding: 12px; z-index: 999; font-size: 14px;
-      }
-    }
-  </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const lang = navigator.language || navigator.userLanguage;
-  const sections = document.querySelectorAll("[data-lang]");
-  sections.forEach(section => {
-    if (!lang.startsWith(section.dataset.lang)) {
-      section.style.display = "none";
-    } else {
-      section.style.display = "block";
-    }
-  });
-});
-</script>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-
-  <div class="adsense-placeholder">📢 여기 상단 광고 (애드센스 삽입 가능)</div>
-
-  <div class="container">
-    <div class="sidebar left">⬅️ 사이드 광고<br>좌측</div>
-
-    <div class="content">
-      <h2>코인 수익률 계산기</h2>
-
-      <section style="margin: 10px 0 20px; padding: 15px; background:#1e1e1e; border-radius: 6px;">
-  <p>매수가/매도가/수량에 수수료와 목표가까지 반영해 수익금과 수익률을 계산합니다.</p>
-</section>
-
-<label for="buyPrice">매수가</label>
-<input type="number" id="buyPrice">
-
-      <label for="sellPrice">매도가</label>
-      <input type="number" id="sellPrice">
-
-      <label for="amount">매수 수량</label>
-      <input type="number" id="amount">
-
-      <label for="buyFee">매수 수수료</label>
-      <input type="number" id="buyFee">
-
-      <label for="sellFee">매도 수수료</label>
-      <input type="number" id="sellFee">
-
-      <label for="targetPrice">목표 매도가</label>
-      <input type="number" id="targetPrice">
-
-      <button onclick="calculateProfit()">계산하기</button>
-      <button onclick="resetForm()">초기화</button>
-      <button onclick="saveAsPDF()">PDF 저장</button>
-
-      <div id="result"></div>
-
-<div style="margin-top: 40px;">
-  <h3 style="color:#00e676;">📈 수익률 시뮬레이션 그래프</h3>
-  <canvas id="roiChart" style="width: 100%; max-width: 700px; height: 300px; background-color: #1e1e1e; border-radius: 10px;"></canvas>
-</div>
-
-      <section style="margin-top: 50px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
-  <h3 style="color:#00e676;">코인 투자 수익률이란?</h3>
-  <p>코인 투자 수익률은 매수 금액 대비 실제 매도 수익을 백분율로 계산한 지표입니다. 일반적으로...</p>
-
-  <h3 style="color:#00e676;">초보자를 위한 꿀팁</h3>
-  <ul>
-    <li>급등 코인에 FOMO하지 말 것</li>
-    <li>정해진 전략에 따라 분할 매수</li>
-    <li>수수료 반영된 수익 계산 필수</li>
-  </ul>
-</section>
-
-      <div class="adsense-placeholder">📢 여기 하단 광고 (애드센스 삽입 가능)</div>
-    </div>
-
-    <div class="sidebar right">➡️ 사이드 광고<br>우측</div>
-  </div>
-
-  <div class="mobile-bottom-banner">
-    📢 모바일 하단 고정 광고 위치 (애드센스 가능)
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-  <script>
-    function calculateProfit() {
-      const buyPrice = parseFloat(document.getElementById('buyPrice').value);
-      const sellPrice = parseFloat(document.getElementById('sellPrice').value);
-      const amount = parseFloat(document.getElementById('amount').value);
-      const buyFee = parseFloat(document.getElementById('buyFee').value || 0);
-      const sellFee = parseFloat(document.getElementById('sellFee').value || 0);
-      const targetPrice = parseFloat(document.getElementById('targetPrice').value || 0);
-      if (isNaN(buyPrice) || isNaN(sellPrice) || isNaN(amount)) {
-        document.getElementById('result').innerHTML = "⚠️ 모든 값을 입력해주세요.";
-        return;
-      }
-      const realBuyPrice = buyPrice * (1 + buyFee / 100);
-      const realSellPrice = sellPrice * (1 - sellFee / 100);
-      const totalBuy = realBuyPrice * amount;
-      const totalSell = realSellPrice * amount;
-      const profit = totalSell - totalBuy;
-      const profitRate = ((profit / totalBuy) * 100).toFixed(2);
-      const avgPrice = totalBuy / amount;
-      let targetResult = "";
-      if (targetPrice > 0) {
-        const targetNet = (targetPrice * (1 - sellFee / 100)) * amount;
-        const targetProfit = targetNet - totalBuy;
-        const targetRate = ((targetProfit / totalBuy) * 100).toFixed(2);
-        targetResult = `<br>🎯 목표가(${targetPrice}) 도달 시 예상 수익률: <strong>${targetRate}%</strong>`;
-      }
-      document.getElementById('result').innerHTML =
-        `💸 실 매수가: <strong>${realBuyPrice.toFixed(2)}</strong><br>` +
-        `💰 실 매도가: <strong>${realSellPrice.toFixed(2)}</strong><br>` +
-        `📊 총 투자금: <strong>${totalBuy.toLocaleString()}</strong><br>` +
-        `📈 총 수익금: <strong>${profit.toLocaleString()}</strong><br>` +
-        `🔥 수익률: <strong>${profitRate}%</strong><br>` +
-        `⚖️ 평균 단가: <strong>${avgPrice.toFixed(2)}</strong>` + targetResult;
-    }
-
-    function resetForm() {
-      ['buyPrice','sellPrice','amount','buyFee','sellFee','targetPrice'].forEach(id => {
-        document.getElementById(id).value = '';
-      });
-      document.getElementById('result').innerHTML = '';
-    }
-
-    function saveAsPDF() {
-      const element = document.getElementById("result");
-      const opt = {
-        margin: 0.5,
-        filename: 'crypto_profit_result.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
-    }
-  </script>
-
-<section data-lang="ko" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
-  <h3 style="color:#00e676;">📊 코인 수익률이란?</h3>
-  <p>코인 수익률은 매수·매도 가격, 수량, 수수료를 기준으로 실제 수익을 백분율로 계산한 것입니다.</p>
-</section>
-
-<section data-lang="en" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
-  <h3 style="color:#00e676;">📊 What is Crypto ROI?</h3>
-  <p>Crypto ROI is a percentage calculation of profit based on buy/sell price, quantity, and transaction fees.</p>
-</section>
-
-<section data-lang="ja" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
-  <h3 style="color:#00e676;">📊 仮想通貨の収益率とは？</h3>
-  <p>仮想通貨のROIは、購入・売却価格、数量、手数料に基づく利益率を示します。</p>
-</section>
-
-<section data-lang="zh" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
-  <h3 style="color:#00e676;">📊 什么是加密货币收益率？</h3>
-  <p>加密货币的收益率是根据买入价、卖出价、数量和手续费计算的利润百分比。</p>
-</section>
-
-<script>
-function drawChart(buyPrice, sellPrice, feeRate, amount) {
+function drawChart(buyPrice, feeRate, amount) {
   const labels = [];
-  const data = [];
+  const dcaData = [];
+  const targetLine = [];
+  const goalRoi = 20; // 목표 수익률 20%
 
   for (let i = 0.8; i <= 1.5; i += 0.05) {
     const targetPrice = buyPrice * i;
-    const revenue = ((targetPrice - buyPrice) * amount) * (1 - feeRate / 100);
+    const dcaPrice = (buyPrice * 0.5 + targetPrice * 0.5); // 50%씩 매수했다고 가정
+    const revenue = ((targetPrice - dcaPrice) * amount) * (1 - feeRate / 100);
     labels.push(targetPrice.toFixed(0) + "원");
-    data.push((revenue).toFixed(2));
+    dcaData.push((revenue).toFixed(2));
+
+    const goalProfit = ((dcaPrice * (goalRoi / 100)) * amount) * (1 - feeRate / 100);
+    targetLine.push(goalProfit.toFixed(2));
   }
 
   const ctx = document.getElementById('roiChart').getContext('2d');
   if (window.roiChart) {
     window.roiChart.destroy();
   }
+
   window.roiChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: labels,
-      datasets: [{
-        label: '예상 수익 (₩)',
-        data: data,
-        borderColor: '#00e676',
-        backgroundColor: 'rgba(0, 230, 118, 0.2)',
-        tension: 0.4,
-        fill: true
-      }]
+      datasets: [
+        {
+          label: 'DCA 예상 수익 (₩)',
+          data: dcaData,
+          borderColor: '#00e676',
+          backgroundColor: 'rgba(0, 230, 118, 0.2)',
+          tension: 0.4,
+          fill: true
+        },
+        {
+          label: '목표 수익선 (20%)',
+          data: targetLine,
+          borderColor: '#ff1744',
+          borderDash: [5, 5],
+          fill: false,
+          tension: 0.4
+        }
+      ]
     },
     options: {
       responsive: true,
@@ -294,17 +75,15 @@ function drawChart(buyPrice, sellPrice, feeRate, amount) {
   });
 }
 
-// 기존 계산 함수에 연동
-const calcBtn = document.querySelector("button");
-calcBtn.addEventListener("click", () => {
+document.querySelector("button").addEventListener("click", () => {
   const buyPrice = parseFloat(document.getElementById("buyPrice").value);
-  const sellPrice = parseFloat(document.getElementById("sellPrice").value);
   const feeRate = parseFloat(document.getElementById("feeRate").value);
   const amount = parseFloat(document.getElementById("amount").value);
-  if (!isNaN(buyPrice) && !isNaN(sellPrice) && !isNaN(feeRate) && !isNaN(amount)) {
-    drawChart(buyPrice, sellPrice, feeRate, amount);
+  if (!isNaN(buyPrice) && !isNaN(feeRate) && !isNaN(amount)) {
+    drawChart(buyPrice, feeRate, amount);
   }
 });
 </script>
+
 </body>
 </html>
