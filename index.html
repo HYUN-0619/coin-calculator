@@ -191,15 +191,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const targetNet = (targetPrice * (1 - sellFee / 100)) * amount;
         const targetProfit = targetNet - totalBuy;
         const targetRate = ((targetProfit / totalBuy) * 100).toFixed(2);
-        targetResult = `<br>🎯 목표가(${targetPrice}₩) 도달 시 예상 수익률: <strong>${targetRate}%</strong>`;
+        targetResult = `<br>🎯 목표가(${targetPrice}) 도달 시 예상 수익률: <strong>${targetRate}%</strong>`;
       }
       document.getElementById('result').innerHTML =
-        `💸 실 매수가: <strong>${realBuyPrice.toFixed(2)}₩</strong><br>` +
-        `💰 실 매도가: <strong>${realSellPrice.toFixed(2)}₩</strong><br>` +
-        `📊 총 투자금: <strong>${totalBuy.toLocaleString()}₩</strong><br>` +
-        `📈 총 수익금: <strong>${profit.toLocaleString()}₩</strong><br>` +
+        `💸 실 매수가: <strong>${realBuyPrice.toFixed(2)}</strong><br>` +
+        `💰 실 매도가: <strong>${realSellPrice.toFixed(2)}</strong><br>` +
+        `📊 총 투자금: <strong>${totalBuy.toLocaleString()}</strong><br>` +
+        `📈 총 수익금: <strong>${profit.toLocaleString()}</strong><br>` +
         `🔥 수익률: <strong>${profitRate}%</strong><br>` +
-        `⚖️ 평균 단가: <strong>${avgPrice.toFixed(2)}₩</strong>` + targetResult;
+        `⚖️ 평균 단가: <strong>${avgPrice.toFixed(2)}</strong>` + targetResult;
     }
 
     function resetForm() {
