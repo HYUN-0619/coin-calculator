@@ -98,6 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -139,6 +141,11 @@ document.addEventListener("DOMContentLoaded", function () {
       <button onclick="saveAsPDF()">PDF 저장</button>
 
       <div id="result"></div>
+
+<div style="margin-top: 40px;">
+  <h3 style="color:#00e676;">📈 수익률 시뮬레이션 그래프</h3>
+  <canvas id="roiChart" style="max-width: 100%; background-color: #1e1e1e; border-radius: 10px;"></canvas>
+</div>
 
       <section style="margin-top: 50px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
   <h3 style="color:#00e676;">코인 투자 수익률이란?</h3>
@@ -237,5 +244,70 @@ document.addEventListener("DOMContentLoaded", function () {
   <h3 style="color:#00e676;">📊 什么是加密货币收益率？</h3>
   <p>加密货币的收益率是根据买入价、卖出价、数量和手续费计算的利润百分比。</p>
 </section>
+
+<script>
+function drawChart(buyPrice, sellPrice, feeRate, amount) {
+  const labels = [];
+  const data = [];
+
+  for (let i = 0.8; i <= 1.5; i += 0.05) {
+    const targetPrice = buyPrice * i;
+    const revenue = ((targetPrice - buyPrice) * amount) * (1 - feeRate / 100);
+    labels.push(targetPrice.toFixed(0) + "원");
+    data.push((revenue).toFixed(2));
+  }
+
+  const ctx = document.getElementById('roiChart').getContext('2d');
+  if (window.roiChart) {
+    window.roiChart.destroy();
+  }
+  window.roiChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '예상 수익 (₩)',
+        data: data,
+        borderColor: '#00e676',
+        backgroundColor: 'rgba(0, 230, 118, 0.2)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#ffffff'
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#ffffff' },
+          grid: { color: '#444' }
+        },
+        y: {
+          ticks: { color: '#ffffff' },
+          grid: { color: '#444' }
+        }
+      }
+    }
+  });
+}
+
+// 기존 계산 함수에 연동
+const calcBtn = document.querySelector("button");
+calcBtn.addEventListener("click", () => {
+  const buyPrice = parseFloat(document.getElementById("buyPrice").value);
+  const sellPrice = parseFloat(document.getElementById("sellPrice").value);
+  const feeRate = parseFloat(document.getElementById("feeRate").value);
+  const amount = parseFloat(document.getElementById("amount").value);
+  if (!isNaN(buyPrice) && !isNaN(sellPrice) && !isNaN(feeRate) && !isNaN(amount)) {
+    drawChart(buyPrice, sellPrice, feeRate, amount);
+  }
+});
+</script>
 </body>
 </html>
