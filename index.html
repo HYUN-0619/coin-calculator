@@ -227,6 +227,59 @@ document.addEventListener("DOMContentLoaded", function () {
       };
       html2pdf().set(opt).from(element).save();
     }
+    function drawChart(buyPrice, feeRate, amount) {
+  const labels = [];
+  const data = [];
+
+  for (let i = 0.8; i <= 1.5; i += 0.05) {
+    const targetPrice = buyPrice * i;
+    const revenue = ((targetPrice - buyPrice) * amount) * (1 - feeRate / 100);
+    labels.push(targetPrice.toFixed(0) + "원");
+    data.push((revenue).toFixed(2));
+  }
+
+  const ctx = document.getElementById('roiChart').getContext('2d');
+  if (window.roiChart) {
+    window.roiChart.destroy();
+  }
+
+  window.roiChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: '예상 수익 (₩)',
+        data: data,
+        borderColor: '#00e676',
+        backgroundColor: 'rgba(0, 230, 118, 0.2)',
+        tension: 0.4,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          labels: { color: '#ffffff' }
+        }
+      },
+      scales: {
+        x: { ticks: { color: '#ffffff' }, grid: { color: '#444' } },
+        y: { ticks: { color: '#ffffff' }, grid: { color: '#444' } }
+      }
+    }
+  });
+}
+
+// 버튼 이벤트에 연동
+document.querySelector("button").addEventListener("click", () => {
+  const buyPrice = parseFloat(document.getElementById("buyPrice").value);
+  const feeRate = parseFloat(document.getElementById("feeRate").value);
+  const amount = parseFloat(document.getElementById("amount").value);
+  if (!isNaN(buyPrice) && !isNaN(feeRate) && !isNaN(amount)) {
+    drawChart(buyPrice, feeRate, amount);
+  }
+});
   </script>
 </body>
 </html>
