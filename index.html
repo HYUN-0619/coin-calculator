@@ -14,7 +14,11 @@
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>코인 수익률 계산기 (프리미엄)</title>
+  
+  <meta name="description" content="실시간 코인 수익률 계산기. 수수료, 수익률, 목표가 분석 포함. 초보자도 쉽게 활용할 수 있는 무료 도구.">
+  <meta name="keywords" content="코인 수익률 계산기, crypto ROI calculator, 암호화폐 투자, 수익 분석, DCA 전략, 비트코인 수익률, 투자 수익률 계산기">
+  <meta name="robots" content="index, follow">
+<title>코인 수익률 계산기 (프리미엄)</title>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YLZZCG8BHH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -80,6 +84,20 @@
       }
     }
   </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const lang = navigator.language || navigator.userLanguage;
+  const sections = document.querySelectorAll("[data-lang]");
+  sections.forEach(section => {
+    if (!lang.startsWith(section.dataset.lang)) {
+      section.style.display = "none";
+    } else {
+      section.style.display = "block";
+    }
+  });
+});
+</script>
 </head>
 <body>
 
@@ -199,5 +217,25 @@
       html2pdf().set(opt).from(element).save();
     }
   </script>
+
+<section data-lang="ko" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
+  <h3 style="color:#00e676;">📊 코인 수익률이란?</h3>
+  <p>코인 수익률은 매수·매도 가격, 수량, 수수료를 기준으로 실제 수익을 백분율로 계산한 것입니다.</p>
+</section>
+
+<section data-lang="en" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
+  <h3 style="color:#00e676;">📊 What is Crypto ROI?</h3>
+  <p>Crypto ROI is a percentage calculation of profit based on buy/sell price, quantity, and transaction fees.</p>
+</section>
+
+<section data-lang="ja" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
+  <h3 style="color:#00e676;">📊 仮想通貨の収益率とは？</h3>
+  <p>仮想通貨のROIは、購入・売却価格、数量、手数料に基づく利益率を示します。</p>
+</section>
+
+<section data-lang="zh" style="margin-top: 40px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
+  <h3 style="color:#00e676;">📊 什么是加密货币收益率？</h3>
+  <p>加密货币的收益率是根据买入价、卖出价、数量和手续费计算的利润百分比。</p>
+</section>
 </body>
 </html>
