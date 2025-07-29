@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const lang = navigator.language || navigator.userLanguage;
+  const sections = document.querySelectorAll("[data-lang]");
+  sections.forEach(section => {
+    section.style.display = lang.startsWith(section.dataset.lang) ? "block" : "none";
+  });
+});
+</script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2413601181805662"
      crossorigin="anonymous"></script>
   <!-- Google tag (gtag.js) -->
@@ -94,15 +103,26 @@
     <div class="content">
       <h2>코인 수익률 계산기</h2>
 
-      <section style="margin-top: 50px; padding: 20px; background:#1e1e1e; border-radius: 8px;">
-  <h3 style="color:#00e676;">🌍 코인 수익률이란? | What is Crypto ROI? | 仮想通貨の収益率とは？ | 什么是加密货币收益率？</h3>
-  <p>
-    [KO] 수익률은 매수와 매도 가격, 수량, 수수료 등을 종합해 이익을 백분율로 계산하는 지표입니다.<br>
-    [EN] ROI reflects how much profit you gained based on buy/sell price, quantity, and fees.<br>
-    [JA] ROIは、購入価格と販売価格、数量、手数料に基づいて利益率を示します。<br>
-    [ZH] 收益率表示在买卖价格、数量和手续费的基础上获得的利润百分比。
-  </p>
+      <section data-lang="ko">
+  <h3>📊 코인 수익률이란?</h3>
+  <p>수익률은 매수·매도 가격과 수수료 등을 고려한 수익 계산입니다.</p>
 </section>
+
+<section data-lang="en">
+  <h3>📊 What is Crypto ROI?</h3>
+  <p>ROI is profit percentage based on your entry and exit price with fees.</p>
+</section>
+
+<section data-lang="ja">
+  <h3>📊 仮想通貨の収益率とは？</h3>
+  <p>ROIは仮想通貨の売買と手数料に基づいた利益率です。</p>
+</section>
+
+<section data-lang="zh">
+  <h3>📊 什么是加密货币收益率？</h3>
+  <p>收益率表示买卖价格和手续费后的利润百分比。</p>
+</section>
+
 
 <label for="buyPrice">매수가 (₩)</label>
 <input type="number" id="buyPrice">
